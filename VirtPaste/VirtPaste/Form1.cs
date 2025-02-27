@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿/*****************************
+    * Project  : Virt_Paste 
+    * File     : Form1.cs
+    * Authors  : Eric Caverly (eric@ericc.ninja)
+    * Description:
+    *   Contains code for main Graphical UI along with registering and unregistering hotkeys.
+    *   Eventually will contain code for systray
+    * Change log:
+    *  [2/26/2025] - Initial Copy
+******************************/
+
+using System;
 using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace VirtPaste {
@@ -39,8 +43,7 @@ namespace VirtPaste {
         private static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vk);
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
-        [System.Runtime.InteropServices.DllImport("user32.dll")]
-        static extern short VkKeyScan(char ch);
+        
 
         // Default | Class global settings
         public Settings settings = new Settings {
@@ -48,7 +51,7 @@ namespace VirtPaste {
             removeReturn = true,
             overrideCaps = true,
             sendBackspaces = false,
-            delayMs = 20,
+            delayMs = 30,
             hotkeyModifiers = (short)(KeyModifier.Ctrl | KeyModifier.Shift),
             hotkeyKey = Keys.V
         };
@@ -57,6 +60,10 @@ namespace VirtPaste {
         // Form constructor
         public Form1() {
             InitializeComponent();
+
+            // Set delegates for Virtual Typer class
+            VirtualTyper.ToggleConduit = ToggleControls;
+            VirtualTyper.UpdateProgress = (value) => Invoke(new Action(() => { UI_PB_Progress.Value = value; }));
 
             // Make UI reflect default settings
             SettingsToUI();
@@ -80,6 +87,14 @@ namespace VirtPaste {
             UI_CB_RemoveReturn.CheckedChanged += CompatChangedEvent;
             UI_CB_SendBackspaces.CheckedChanged += CompatChangedEvent;
             UI_TRB_Delay.ValueChanged += CompatChangedEvent;
+
+            // Bind stop button handler
+            UI_BTN_Stop.Click += UI_BTN_Stop_Click;
+        }
+
+        private void UI_BTN_Stop_Click(object sender, EventArgs e) {
+            if (VirtualTyper.Typing)
+                VirtualTyper.StopTyping();
         }
 
 
@@ -100,6 +115,7 @@ namespace VirtPaste {
             // Get the key in the key selection box
             settings.hotkeyKey = (Keys)char.ToUpper(UI_TB_Hotkey.Text[0]);
 
+            // Get a mask of all selected modifiers
             settings.hotkeyModifiers = 0;
             settings.hotkeyModifiers |= (short)(UI_CB_MOD_Alt.Checked ? KeyModifier.Alt : 0);
             settings.hotkeyModifiers |= (short)(UI_CB_MOD_Ctrl.Checked ? KeyModifier.Ctrl : 0);
@@ -114,6 +130,7 @@ namespace VirtPaste {
 
             //Trace.WriteLine($"Key: {(Keys)settings.hotkeyKey} | Modifiers : {settings.hotkeyModifiers}");
 
+            // Re-bind hotkeys
             BindHotkey();
             RegisterHotKey(Handle, CANCEL_HOTKEY_ID, 0, (int)Keys.Escape);
         }
@@ -128,6 +145,8 @@ namespace VirtPaste {
             settings.overrideCaps = UI_CB_RemoveCapslock.Checked;
             settings.removeReturn = UI_CB_RemoveReturn.Checked;
             settings.sendBackspaces = UI_CB_SendBackspaces.Checked;
+
+            
         }
 
 
@@ -163,6 +182,30 @@ namespace VirtPaste {
             UI_CB_Active.Checked = settings.active;
         }
 
+        /*************************
+         * Method  : ToggleControls
+         * Purpose : Enable / Disable controls while pasting. Uses Invoke for Thread Safety
+         * Params  :
+         *   enabled -> Enabled value for controls
+         *************************/
+        public void ToggleControls(bool enabled) {
+            Invoke(new Action(() => {
+                UI_CB_Active.Enabled = enabled;
+                UI_CB_MOD_Alt.Enabled = enabled;
+                UI_CB_MOD_Ctrl.Enabled = enabled;
+                UI_CB_MOD_Shift.Enabled = enabled;
+                UI_CB_MOD_Win.Enabled = enabled;
+                UI_CB_RemoveCapslock.Enabled = enabled;
+                UI_CB_RemoveReturn.Enabled = enabled;
+                UI_CB_SendBackspaces.Enabled = enabled;
+                UI_TB_Hotkey.Enabled = enabled;
+                UI_TRB_Delay.Enabled = enabled;
+
+                UI_BTN_Stop.Enabled = !enabled;
+            }));
+            
+        }
+
 
         /******************************
          * Method  : BindHotkey
@@ -193,16 +236,17 @@ namespace VirtPaste {
                 // Obtain the ID of the event
                 int id = m.WParam.ToInt32();
 
-                //Trace.WriteLine($"Hotkey pressed: {id}");
-
                 switch (id) {
+                    // If this was the hotkey for pasting, start typing using the VirtualTyper static method
                     case PASTE_HOTKEY_ID:
-                        //if (!backgroundWorker1.IsBusy)
-                        //    start_typing();
+                        if (!VirtualTyper.Typing)
+                            VirtualTyper.StartTyping(settings, Clipboard.GetText());
                         break;
+
+                    // If this was the hotkey for cancelling, stop typing asap
                     case CANCEL_HOTKEY_ID:
-                        //if (backgroundWorker1.IsBusy)
-                        //    stop_typing();
+                        if (VirtualTyper.Typing)
+                            VirtualTyper.StopTyping();
                         break;
                 }
 

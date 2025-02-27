@@ -24,23 +24,23 @@
         /// </summary>
         private void InitializeComponent() {
             this.UI_GB_Compat = new System.Windows.Forms.GroupBox();
+            this.UI_LBL_Delay = new System.Windows.Forms.Label();
+            this.UI_LBL_DelayMax = new System.Windows.Forms.Label();
+            this.UI_LBL_DelayMin = new System.Windows.Forms.Label();
+            this.UI_TRB_Delay = new System.Windows.Forms.TrackBar();
+            this.UI_CB_SendBackspaces = new System.Windows.Forms.CheckBox();
+            this.UI_CB_RemoveCapslock = new System.Windows.Forms.CheckBox();
+            this.UI_CB_RemoveReturn = new System.Windows.Forms.CheckBox();
             this.UI_PB_Progress = new System.Windows.Forms.ProgressBar();
             this.UI_BTN_Stop = new System.Windows.Forms.Button();
             this.UI_BTN_Hide = new System.Windows.Forms.Button();
-            this.UI_CB_RemoveReturn = new System.Windows.Forms.CheckBox();
-            this.UI_CB_RemoveCapslock = new System.Windows.Forms.CheckBox();
-            this.UI_CB_SendBackspaces = new System.Windows.Forms.CheckBox();
-            this.UI_TRB_Delay = new System.Windows.Forms.TrackBar();
-            this.UI_LBL_DelayMin = new System.Windows.Forms.Label();
-            this.UI_LBL_DelayMax = new System.Windows.Forms.Label();
-            this.UI_LBL_Delay = new System.Windows.Forms.Label();
             this.UI_CB_Active = new System.Windows.Forms.CheckBox();
             this.UI_GB_Hotkey = new System.Windows.Forms.GroupBox();
-            this.UI_CB_MOD_Ctrl = new System.Windows.Forms.CheckBox();
-            this.UI_CB_MOD_Alt = new System.Windows.Forms.CheckBox();
-            this.UI_CB_MOD_Shift = new System.Windows.Forms.CheckBox();
-            this.UI_CB_MOD_Win = new System.Windows.Forms.CheckBox();
             this.UI_TB_Hotkey = new System.Windows.Forms.TextBox();
+            this.UI_CB_MOD_Win = new System.Windows.Forms.CheckBox();
+            this.UI_CB_MOD_Shift = new System.Windows.Forms.CheckBox();
+            this.UI_CB_MOD_Alt = new System.Windows.Forms.CheckBox();
+            this.UI_CB_MOD_Ctrl = new System.Windows.Forms.CheckBox();
             this.UI_GB_Compat.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.UI_TRB_Delay)).BeginInit();
             this.UI_GB_Hotkey.SuspendLayout();
@@ -61,6 +61,76 @@
             this.UI_GB_Compat.TabIndex = 0;
             this.UI_GB_Compat.TabStop = false;
             this.UI_GB_Compat.Text = "Compatibility Options";
+            // 
+            // UI_LBL_Delay
+            // 
+            this.UI_LBL_Delay.Location = new System.Drawing.Point(44, 74);
+            this.UI_LBL_Delay.Name = "UI_LBL_Delay";
+            this.UI_LBL_Delay.Size = new System.Drawing.Size(259, 13);
+            this.UI_LBL_Delay.TabIndex = 6;
+            this.UI_LBL_Delay.Text = "Delay";
+            this.UI_LBL_Delay.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // UI_LBL_DelayMax
+            // 
+            this.UI_LBL_DelayMax.AutoSize = true;
+            this.UI_LBL_DelayMax.Location = new System.Drawing.Point(309, 74);
+            this.UI_LBL_DelayMax.Name = "UI_LBL_DelayMax";
+            this.UI_LBL_DelayMax.Size = new System.Drawing.Size(38, 13);
+            this.UI_LBL_DelayMax.TabIndex = 5;
+            this.UI_LBL_DelayMax.Text = "200ms";
+            // 
+            // UI_LBL_DelayMin
+            // 
+            this.UI_LBL_DelayMin.AutoSize = true;
+            this.UI_LBL_DelayMin.Location = new System.Drawing.Point(6, 74);
+            this.UI_LBL_DelayMin.Name = "UI_LBL_DelayMin";
+            this.UI_LBL_DelayMin.Size = new System.Drawing.Size(32, 13);
+            this.UI_LBL_DelayMin.TabIndex = 4;
+            this.UI_LBL_DelayMin.Text = "30ms";
+            // 
+            // UI_TRB_Delay
+            // 
+            this.UI_TRB_Delay.LargeChange = 10;
+            this.UI_TRB_Delay.Location = new System.Drawing.Point(6, 42);
+            this.UI_TRB_Delay.Maximum = 200;
+            this.UI_TRB_Delay.Minimum = 30;
+            this.UI_TRB_Delay.Name = "UI_TRB_Delay";
+            this.UI_TRB_Delay.Size = new System.Drawing.Size(335, 45);
+            this.UI_TRB_Delay.SmallChange = 5;
+            this.UI_TRB_Delay.TabIndex = 3;
+            this.UI_TRB_Delay.TickFrequency = 10;
+            this.UI_TRB_Delay.Value = 30;
+            // 
+            // UI_CB_SendBackspaces
+            // 
+            this.UI_CB_SendBackspaces.AutoSize = true;
+            this.UI_CB_SendBackspaces.Location = new System.Drawing.Point(208, 19);
+            this.UI_CB_SendBackspaces.Name = "UI_CB_SendBackspaces";
+            this.UI_CB_SendBackspaces.Size = new System.Drawing.Size(113, 17);
+            this.UI_CB_SendBackspaces.TabIndex = 2;
+            this.UI_CB_SendBackspaces.Text = "Send Backspaces";
+            this.UI_CB_SendBackspaces.UseVisualStyleBackColor = true;
+            // 
+            // UI_CB_RemoveCapslock
+            // 
+            this.UI_CB_RemoveCapslock.AutoSize = true;
+            this.UI_CB_RemoveCapslock.Location = new System.Drawing.Point(89, 19);
+            this.UI_CB_RemoveCapslock.Name = "UI_CB_RemoveCapslock";
+            this.UI_CB_RemoveCapslock.Size = new System.Drawing.Size(113, 17);
+            this.UI_CB_RemoveCapslock.TabIndex = 1;
+            this.UI_CB_RemoveCapslock.Text = "Override Capslock";
+            this.UI_CB_RemoveCapslock.UseVisualStyleBackColor = true;
+            // 
+            // UI_CB_RemoveReturn
+            // 
+            this.UI_CB_RemoveReturn.AutoSize = true;
+            this.UI_CB_RemoveReturn.Location = new System.Drawing.Point(6, 19);
+            this.UI_CB_RemoveReturn.Name = "UI_CB_RemoveReturn";
+            this.UI_CB_RemoveReturn.Size = new System.Drawing.Size(77, 17);
+            this.UI_CB_RemoveReturn.TabIndex = 0;
+            this.UI_CB_RemoveReturn.Text = "Remove \\r";
+            this.UI_CB_RemoveReturn.UseVisualStyleBackColor = true;
             // 
             // UI_PB_Progress
             // 
@@ -92,76 +162,6 @@
             this.UI_BTN_Hide.Text = "Hide";
             this.UI_BTN_Hide.UseVisualStyleBackColor = true;
             // 
-            // UI_CB_RemoveReturn
-            // 
-            this.UI_CB_RemoveReturn.AutoSize = true;
-            this.UI_CB_RemoveReturn.Location = new System.Drawing.Point(6, 19);
-            this.UI_CB_RemoveReturn.Name = "UI_CB_RemoveReturn";
-            this.UI_CB_RemoveReturn.Size = new System.Drawing.Size(77, 17);
-            this.UI_CB_RemoveReturn.TabIndex = 0;
-            this.UI_CB_RemoveReturn.Text = "Remove \\r";
-            this.UI_CB_RemoveReturn.UseVisualStyleBackColor = true;
-            // 
-            // UI_CB_RemoveCapslock
-            // 
-            this.UI_CB_RemoveCapslock.AutoSize = true;
-            this.UI_CB_RemoveCapslock.Location = new System.Drawing.Point(89, 19);
-            this.UI_CB_RemoveCapslock.Name = "UI_CB_RemoveCapslock";
-            this.UI_CB_RemoveCapslock.Size = new System.Drawing.Size(113, 17);
-            this.UI_CB_RemoveCapslock.TabIndex = 1;
-            this.UI_CB_RemoveCapslock.Text = "Override Capslock";
-            this.UI_CB_RemoveCapslock.UseVisualStyleBackColor = true;
-            // 
-            // UI_CB_SendBackspaces
-            // 
-            this.UI_CB_SendBackspaces.AutoSize = true;
-            this.UI_CB_SendBackspaces.Location = new System.Drawing.Point(208, 19);
-            this.UI_CB_SendBackspaces.Name = "UI_CB_SendBackspaces";
-            this.UI_CB_SendBackspaces.Size = new System.Drawing.Size(113, 17);
-            this.UI_CB_SendBackspaces.TabIndex = 2;
-            this.UI_CB_SendBackspaces.Text = "Send Backspaces";
-            this.UI_CB_SendBackspaces.UseVisualStyleBackColor = true;
-            // 
-            // UI_TRB_Delay
-            // 
-            this.UI_TRB_Delay.LargeChange = 10;
-            this.UI_TRB_Delay.Location = new System.Drawing.Point(6, 42);
-            this.UI_TRB_Delay.Maximum = 200;
-            this.UI_TRB_Delay.Minimum = 20;
-            this.UI_TRB_Delay.Name = "UI_TRB_Delay";
-            this.UI_TRB_Delay.Size = new System.Drawing.Size(335, 45);
-            this.UI_TRB_Delay.SmallChange = 5;
-            this.UI_TRB_Delay.TabIndex = 3;
-            this.UI_TRB_Delay.TickFrequency = 10;
-            this.UI_TRB_Delay.Value = 20;
-            // 
-            // UI_LBL_DelayMin
-            // 
-            this.UI_LBL_DelayMin.AutoSize = true;
-            this.UI_LBL_DelayMin.Location = new System.Drawing.Point(6, 74);
-            this.UI_LBL_DelayMin.Name = "UI_LBL_DelayMin";
-            this.UI_LBL_DelayMin.Size = new System.Drawing.Size(32, 13);
-            this.UI_LBL_DelayMin.TabIndex = 4;
-            this.UI_LBL_DelayMin.Text = "20ms";
-            // 
-            // UI_LBL_DelayMax
-            // 
-            this.UI_LBL_DelayMax.AutoSize = true;
-            this.UI_LBL_DelayMax.Location = new System.Drawing.Point(309, 74);
-            this.UI_LBL_DelayMax.Name = "UI_LBL_DelayMax";
-            this.UI_LBL_DelayMax.Size = new System.Drawing.Size(38, 13);
-            this.UI_LBL_DelayMax.TabIndex = 5;
-            this.UI_LBL_DelayMax.Text = "200ms";
-            // 
-            // UI_LBL_Delay
-            // 
-            this.UI_LBL_Delay.Location = new System.Drawing.Point(44, 74);
-            this.UI_LBL_Delay.Name = "UI_LBL_Delay";
-            this.UI_LBL_Delay.Size = new System.Drawing.Size(259, 13);
-            this.UI_LBL_Delay.TabIndex = 6;
-            this.UI_LBL_Delay.Text = "Delay";
-            this.UI_LBL_Delay.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // UI_CB_Active
             // 
             this.UI_CB_Active.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -187,35 +187,13 @@
             this.UI_GB_Hotkey.TabStop = false;
             this.UI_GB_Hotkey.Text = "Hotkey";
             // 
-            // UI_CB_MOD_Ctrl
+            // UI_TB_Hotkey
             // 
-            this.UI_CB_MOD_Ctrl.AutoSize = true;
-            this.UI_CB_MOD_Ctrl.Location = new System.Drawing.Point(9, 19);
-            this.UI_CB_MOD_Ctrl.Name = "UI_CB_MOD_Ctrl";
-            this.UI_CB_MOD_Ctrl.Size = new System.Drawing.Size(54, 17);
-            this.UI_CB_MOD_Ctrl.TabIndex = 0;
-            this.UI_CB_MOD_Ctrl.Text = "CTRL";
-            this.UI_CB_MOD_Ctrl.UseVisualStyleBackColor = true;
-            // 
-            // UI_CB_MOD_Alt
-            // 
-            this.UI_CB_MOD_Alt.AutoSize = true;
-            this.UI_CB_MOD_Alt.Location = new System.Drawing.Point(69, 19);
-            this.UI_CB_MOD_Alt.Name = "UI_CB_MOD_Alt";
-            this.UI_CB_MOD_Alt.Size = new System.Drawing.Size(46, 17);
-            this.UI_CB_MOD_Alt.TabIndex = 1;
-            this.UI_CB_MOD_Alt.Text = "ALT";
-            this.UI_CB_MOD_Alt.UseVisualStyleBackColor = true;
-            // 
-            // UI_CB_MOD_Shift
-            // 
-            this.UI_CB_MOD_Shift.AutoSize = true;
-            this.UI_CB_MOD_Shift.Location = new System.Drawing.Point(121, 19);
-            this.UI_CB_MOD_Shift.Name = "UI_CB_MOD_Shift";
-            this.UI_CB_MOD_Shift.Size = new System.Drawing.Size(57, 17);
-            this.UI_CB_MOD_Shift.TabIndex = 2;
-            this.UI_CB_MOD_Shift.Text = "SHIFT";
-            this.UI_CB_MOD_Shift.UseVisualStyleBackColor = true;
+            this.UI_TB_Hotkey.Location = new System.Drawing.Point(238, 17);
+            this.UI_TB_Hotkey.MaxLength = 1;
+            this.UI_TB_Hotkey.Name = "UI_TB_Hotkey";
+            this.UI_TB_Hotkey.Size = new System.Drawing.Size(28, 20);
+            this.UI_TB_Hotkey.TabIndex = 4;
             // 
             // UI_CB_MOD_Win
             // 
@@ -227,13 +205,35 @@
             this.UI_CB_MOD_Win.Text = "WIN";
             this.UI_CB_MOD_Win.UseVisualStyleBackColor = true;
             // 
-            // UI_TB_Hotkey
+            // UI_CB_MOD_Shift
             // 
-            this.UI_TB_Hotkey.Location = new System.Drawing.Point(238, 17);
-            this.UI_TB_Hotkey.MaxLength = 1;
-            this.UI_TB_Hotkey.Name = "UI_TB_Hotkey";
-            this.UI_TB_Hotkey.Size = new System.Drawing.Size(28, 20);
-            this.UI_TB_Hotkey.TabIndex = 4;
+            this.UI_CB_MOD_Shift.AutoSize = true;
+            this.UI_CB_MOD_Shift.Location = new System.Drawing.Point(121, 19);
+            this.UI_CB_MOD_Shift.Name = "UI_CB_MOD_Shift";
+            this.UI_CB_MOD_Shift.Size = new System.Drawing.Size(57, 17);
+            this.UI_CB_MOD_Shift.TabIndex = 2;
+            this.UI_CB_MOD_Shift.Text = "SHIFT";
+            this.UI_CB_MOD_Shift.UseVisualStyleBackColor = true;
+            // 
+            // UI_CB_MOD_Alt
+            // 
+            this.UI_CB_MOD_Alt.AutoSize = true;
+            this.UI_CB_MOD_Alt.Location = new System.Drawing.Point(69, 19);
+            this.UI_CB_MOD_Alt.Name = "UI_CB_MOD_Alt";
+            this.UI_CB_MOD_Alt.Size = new System.Drawing.Size(46, 17);
+            this.UI_CB_MOD_Alt.TabIndex = 1;
+            this.UI_CB_MOD_Alt.Text = "ALT";
+            this.UI_CB_MOD_Alt.UseVisualStyleBackColor = true;
+            // 
+            // UI_CB_MOD_Ctrl
+            // 
+            this.UI_CB_MOD_Ctrl.AutoSize = true;
+            this.UI_CB_MOD_Ctrl.Location = new System.Drawing.Point(9, 19);
+            this.UI_CB_MOD_Ctrl.Name = "UI_CB_MOD_Ctrl";
+            this.UI_CB_MOD_Ctrl.Size = new System.Drawing.Size(54, 17);
+            this.UI_CB_MOD_Ctrl.TabIndex = 0;
+            this.UI_CB_MOD_Ctrl.Text = "CTRL";
+            this.UI_CB_MOD_Ctrl.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -247,6 +247,8 @@
             this.Controls.Add(this.UI_BTN_Stop);
             this.Controls.Add(this.UI_PB_Progress);
             this.Controls.Add(this.UI_GB_Compat);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Virt Paste";
             this.UI_GB_Compat.ResumeLayout(false);
