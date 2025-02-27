@@ -6,11 +6,18 @@ The purpose of Virtual Paste is to send virtual key presses of the contents from
 
 Common use cases include Web VNC, Web-based SSH, or ScreenConnect sessions.
 
-## How to use
-1. Download the EXE from the releases section
-2. Run the EXE, by default the hotkey is bound to CTRL+SHIFT+V
+## How to Use
+### Installation
+1. Download VirtPasteRelease[latest].zip from the releases section
+2. Unzip, then run setup.exe
 
-**You can cancel a paste job at any time by holding ESC or clicking the "Stop" button on the UI**
+### Without Installation
+1. Download the EXE from the releases section
+2. Run the EXE
+
+### Using
+- By default the hotkey is bound to CTRL+SHIFT+V
+- **You can cancel a paste job at any time by holding ESC or clicking the "Stop" button on the UI**
 
 ## Hotkey
 1. Enable the modifier keys you wish to use, note that at least one is required
