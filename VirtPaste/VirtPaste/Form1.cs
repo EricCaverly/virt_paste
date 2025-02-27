@@ -7,6 +7,7 @@
     *   Eventually will contain code for systray
     * Change log:
     *  [2/26/2025] - Initial Copy
+    *  [2/27/2025] - Added fast typing - new default
 ******************************/
 
 using System;
@@ -25,6 +26,7 @@ namespace VirtPaste {
 
     public struct Settings {        // Stores active session information
         public bool active;
+        public bool slowTyping;
         public bool removeReturn;
         public bool overrideCaps;
         public bool sendBackspaces;
@@ -43,11 +45,12 @@ namespace VirtPaste {
         private static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vk);
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
-        
+
 
         // Default | Class global settings
         public Settings settings = new Settings {
             active = true,
+            slowTyping = false,
             removeReturn = true,
             overrideCaps = true,
             sendBackspaces = false,
@@ -87,10 +90,12 @@ namespace VirtPaste {
             UI_CB_RemoveReturn.CheckedChanged += CompatChangedEvent;
             UI_CB_SendBackspaces.CheckedChanged += CompatChangedEvent;
             UI_TRB_Delay.ValueChanged += CompatChangedEvent;
+            UI_CB_SlowType.CheckedChanged += CompatChangedEvent;
 
             // Bind stop button handler
             UI_BTN_Stop.Click += UI_BTN_Stop_Click;
         }
+
 
         private void UI_BTN_Stop_Click(object sender, EventArgs e) {
             if (VirtualTyper.Typing)
@@ -145,8 +150,12 @@ namespace VirtPaste {
             settings.overrideCaps = UI_CB_RemoveCapslock.Checked;
             settings.removeReturn = UI_CB_RemoveReturn.Checked;
             settings.sendBackspaces = UI_CB_SendBackspaces.Checked;
+            settings.slowTyping = UI_CB_SlowType.Checked;
 
-            
+            if (settings.slowTyping)
+                UI_TRB_Delay.Enabled = true;
+            else
+                UI_TRB_Delay.Enabled = false;
         }
 
 
@@ -180,6 +189,11 @@ namespace VirtPaste {
                 UI_CB_MOD_Win.Checked = true;
             UI_TB_Hotkey.Text = ((Keys)settings.hotkeyKey).ToString();
             UI_CB_Active.Checked = settings.active;
+            UI_CB_SlowType.Checked = settings.slowTyping;
+            if (settings.slowTyping)
+                UI_TRB_Delay.Enabled = true;
+            else
+                UI_TRB_Delay.Enabled = false;
         }
 
         /*************************
@@ -199,7 +213,11 @@ namespace VirtPaste {
                 UI_CB_RemoveReturn.Enabled = enabled;
                 UI_CB_SendBackspaces.Enabled = enabled;
                 UI_TB_Hotkey.Enabled = enabled;
-                UI_TRB_Delay.Enabled = enabled;
+                if (settings.slowTyping)
+                    UI_TRB_Delay.Enabled = enabled;
+                else 
+                    UI_TRB_Delay.Enabled = false;
+                UI_CB_SlowType.Enabled = enabled;
 
                 UI_BTN_Stop.Enabled = !enabled;
             }));

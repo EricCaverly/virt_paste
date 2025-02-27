@@ -7,10 +7,12 @@
     *   Also uses delegates to update Form1
     * Change log:
     *  [2/26/2025] - Initial Copy
+    *  [2/27/2025] - Added fast typing - new default
 ******************************/
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
@@ -22,6 +24,7 @@ namespace VirtPaste {
          * Win32.h / user32.dll C-style function prototypes and data types
          * Required to interact with low-level Windows API functionality
          * For more information visit Micorosoft's official documentation
+         * DO NOT TOUCH
          */
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         static extern short VkKeyScan(char ch);
@@ -78,7 +81,7 @@ namespace VirtPaste {
 
         /***** My Code Starts Here ***********/
 
-        static ushort[] modifiersList = {
+        static readonly ushort[] modifiersList = {
             0x08, // Backspace
             0x09, // Tab
             0x0D, // Return
@@ -176,12 +179,12 @@ namespace VirtPaste {
 
                     // Scan the character into windows key codes
                     short keycode = VkKeyScan(c);
-                    
+
                     // Determine if the shift key is required or not
                     int shift_required = keycode >> 8;
 
                     // Get the key (without shift key)
-                    char virtual_key_code = (char)(keycode&0x00FF);
+                    char virtual_key_code = (char)(keycode & 0x00FF);
 
                     // If the shift key is required, add it to queue
                     if (shift_required == 1)
@@ -220,41 +223,66 @@ namespace VirtPaste {
                     });
                 }
 
-                /*
-                 * Meat and potatos loop - what takes the most time
-                 * For each keyboard input queued above, build an array of unions (needed by Win32.h) and pass to sendinput
-                 * Sends a single KEY ACTION between delays, this is the most tollerant of poor connections
-                 */
-                // Variables used for progress bar
-                int index = 0;
-                int total = inputQueue.Count;
-                foreach (KeyboardInput kinput in inputQueue) {
-                    // Allow the user to stop at any point
-                    if (Typing == false)
-                        break;
 
-                    // Generate the array with a single key action
-                    INPUT[] inputs = new INPUT[] {
-                        new INPUT {
-                            type = (int)InputType.Keyboard,
-                            u = new InputUnion {
-                                ki = kinput
+                if (settings.slowTyping) {
+                    /*
+                     * Meat and potatos loop - what takes the most time
+                     * For each keyboard input queued above, build an array of unions (needed by Win32.h) and pass to sendinput
+                     * Sends a single KEY ACTION between delays, this is the most tollerant of poor connections
+                     */
+                    // Variables used for progress bar
+                    int index = 0;
+                    int total = inputQueue.Count;
+                    foreach (KeyboardInput kinput in inputQueue) {
+                        // Allow the user to stop at any point
+                        if (Typing == false)
+                            break;
+
+                        // Generate the array with a single key action
+                        INPUT[] inputs = new INPUT[] {
+                            new INPUT {
+                                type = (int)InputType.Keyboard,
+                                u = new InputUnion {
+                                    ki = kinput
+                                }
                             }
-                        }
-                    };
+                        };
 
-                    // Send, update progress bar on Form1, then wait
-                    SendInput(1, inputs, Marshal.SizeOf(typeof(INPUT)));
-                    UpdateProgress?.Invoke(++index * 100 / total);
-                    Thread.Sleep(settings.delayMs);
+                        // Send, update progress bar on Form1, then wait
+                        SendInput(1, inputs, Marshal.SizeOf(typeof(INPUT)));
+                        UpdateProgress?.Invoke(++index * 100 / total);
+                        Thread.Sleep(settings.delayMs);
+                    }
+                } else {
+                    /* If slow typing is not desired / required, it's much faster and more reliable to send all key presses at once
+                     * This scope will end before the typing actually completes, as all key presses are handed off to the OS.
+                     * SendInput() will return before typing completes, so accurate progress is not possible
+                     */
+
+                    // Reset progress bar
+                    UpdateProgress?.Invoke(0);
+
+                    // Conver the queue of KeyboardInputs into an Enumerable of INPUT
+                    IEnumerable<INPUT> inputs = inputQueue.AsEnumerable().Select((kinput) => new INPUT {
+                        type = (int)InputType.Keyboard,
+                        u = new InputUnion {
+                            ki = kinput
+                        }
+                    });
+
+                    // Convert the Enumerable to an array, then send it to Windows
+                    SendInput(inputs.Count(), inputs.ToArray(), Marshal.SizeOf(typeof(INPUT)));
+
+                    // Set progress bar to complete, as now Windows will handle the rest
+                    UpdateProgress?.Invoke(100);
                 }
 
                 // Reset UI and state variables
                 StopTyping();
-            });
-
-            // Start the pasting thread in the background
-            pasteThread.IsBackground = true;
+            }) {
+                // Start the pasting thread in the background
+                IsBackground = true
+            };
             pasteThread.Start();
 
         }

@@ -41,6 +41,7 @@
             this.UI_CB_MOD_Shift = new System.Windows.Forms.CheckBox();
             this.UI_CB_MOD_Alt = new System.Windows.Forms.CheckBox();
             this.UI_CB_MOD_Ctrl = new System.Windows.Forms.CheckBox();
+            this.UI_CB_SlowType = new System.Windows.Forms.CheckBox();
             this.UI_GB_Compat.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.UI_TRB_Delay)).BeginInit();
             this.UI_GB_Hotkey.SuspendLayout();
@@ -48,6 +49,7 @@
             // 
             // UI_GB_Compat
             // 
+            this.UI_GB_Compat.Controls.Add(this.UI_CB_SlowType);
             this.UI_GB_Compat.Controls.Add(this.UI_LBL_Delay);
             this.UI_GB_Compat.Controls.Add(this.UI_LBL_DelayMax);
             this.UI_GB_Compat.Controls.Add(this.UI_LBL_DelayMin);
@@ -64,9 +66,9 @@
             // 
             // UI_LBL_Delay
             // 
-            this.UI_LBL_Delay.Location = new System.Drawing.Point(44, 74);
+            this.UI_LBL_Delay.Location = new System.Drawing.Point(114, 74);
             this.UI_LBL_Delay.Name = "UI_LBL_Delay";
-            this.UI_LBL_Delay.Size = new System.Drawing.Size(259, 13);
+            this.UI_LBL_Delay.Size = new System.Drawing.Size(189, 13);
             this.UI_LBL_Delay.TabIndex = 6;
             this.UI_LBL_Delay.Text = "Delay";
             this.UI_LBL_Delay.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -83,7 +85,7 @@
             // UI_LBL_DelayMin
             // 
             this.UI_LBL_DelayMin.AutoSize = true;
-            this.UI_LBL_DelayMin.Location = new System.Drawing.Point(6, 74);
+            this.UI_LBL_DelayMin.Location = new System.Drawing.Point(86, 74);
             this.UI_LBL_DelayMin.Name = "UI_LBL_DelayMin";
             this.UI_LBL_DelayMin.Size = new System.Drawing.Size(32, 13);
             this.UI_LBL_DelayMin.TabIndex = 4;
@@ -92,11 +94,11 @@
             // UI_TRB_Delay
             // 
             this.UI_TRB_Delay.LargeChange = 10;
-            this.UI_TRB_Delay.Location = new System.Drawing.Point(6, 42);
+            this.UI_TRB_Delay.Location = new System.Drawing.Point(89, 42);
             this.UI_TRB_Delay.Maximum = 200;
             this.UI_TRB_Delay.Minimum = 30;
             this.UI_TRB_Delay.Name = "UI_TRB_Delay";
-            this.UI_TRB_Delay.Size = new System.Drawing.Size(335, 45);
+            this.UI_TRB_Delay.Size = new System.Drawing.Size(252, 45);
             this.UI_TRB_Delay.SmallChange = 5;
             this.UI_TRB_Delay.TabIndex = 3;
             this.UI_TRB_Delay.TickFrequency = 10;
@@ -235,6 +237,16 @@
             this.UI_CB_MOD_Ctrl.Text = "CTRL";
             this.UI_CB_MOD_Ctrl.UseVisualStyleBackColor = true;
             // 
+            // UI_CB_SlowType
+            // 
+            this.UI_CB_SlowType.AutoSize = true;
+            this.UI_CB_SlowType.Location = new System.Drawing.Point(6, 43);
+            this.UI_CB_SlowType.Name = "UI_CB_SlowType";
+            this.UI_CB_SlowType.Size = new System.Drawing.Size(84, 17);
+            this.UI_CB_SlowType.TabIndex = 7;
+            this.UI_CB_SlowType.Text = "Slow Typing";
+            this.UI_CB_SlowType.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -281,6 +293,7 @@
         private System.Windows.Forms.CheckBox UI_CB_MOD_Alt;
         private System.Windows.Forms.CheckBox UI_CB_MOD_Ctrl;
         private System.Windows.Forms.TextBox UI_TB_Hotkey;
+        private System.Windows.Forms.CheckBox UI_CB_SlowType;
     }
 }
 
