@@ -7,7 +7,7 @@
     *   Also uses delegates to update Form1
     * Change log:
     *  [2/26/2025] - Initial Copy
-    *  [2/27/2025] - Added fast typing - new default
+    *  [2/27/2025] - Added fast typing - new default.
 ******************************/
 
 using System;

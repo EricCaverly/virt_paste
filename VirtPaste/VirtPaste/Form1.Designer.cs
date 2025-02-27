@@ -23,6 +23,8 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.UI_GB_Compat = new System.Windows.Forms.GroupBox();
             this.UI_LBL_Delay = new System.Windows.Forms.Label();
             this.UI_LBL_DelayMax = new System.Windows.Forms.Label();
@@ -42,9 +44,14 @@
             this.UI_CB_MOD_Alt = new System.Windows.Forms.CheckBox();
             this.UI_CB_MOD_Ctrl = new System.Windows.Forms.CheckBox();
             this.UI_CB_SlowType = new System.Windows.Forms.CheckBox();
+            this.UI_NI_SysTray = new System.Windows.Forms.NotifyIcon(this.components);
+            this.UI_CMS_NI_SysTray = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.UI_CMSBTN_ShowSettings = new System.Windows.Forms.ToolStripMenuItem();
+            this.UI_CMSBTN_Quit = new System.Windows.Forms.ToolStripMenuItem();
             this.UI_GB_Compat.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.UI_TRB_Delay)).BeginInit();
             this.UI_GB_Hotkey.SuspendLayout();
+            this.UI_CMS_NI_SysTray.SuspendLayout();
             this.SuspendLayout();
             // 
             // UI_GB_Compat
@@ -247,6 +254,33 @@
             this.UI_CB_SlowType.Text = "Slow Typing";
             this.UI_CB_SlowType.UseVisualStyleBackColor = true;
             // 
+            // UI_NI_SysTray
+            // 
+            this.UI_NI_SysTray.ContextMenuStrip = this.UI_CMS_NI_SysTray;
+            this.UI_NI_SysTray.Icon = ((System.Drawing.Icon)(resources.GetObject("UI_NI_SysTray.Icon")));
+            this.UI_NI_SysTray.Text = "VirtPaste";
+            this.UI_NI_SysTray.Visible = true;
+            // 
+            // UI_CMS_NI_SysTray
+            // 
+            this.UI_CMS_NI_SysTray.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.UI_CMSBTN_ShowSettings,
+            this.UI_CMSBTN_Quit});
+            this.UI_CMS_NI_SysTray.Name = "UI_CMS_NI_SysTray";
+            this.UI_CMS_NI_SysTray.Size = new System.Drawing.Size(181, 70);
+            // 
+            // UI_CMSBTN_ShowSettings
+            // 
+            this.UI_CMSBTN_ShowSettings.Name = "UI_CMSBTN_ShowSettings";
+            this.UI_CMSBTN_ShowSettings.Size = new System.Drawing.Size(180, 22);
+            this.UI_CMSBTN_ShowSettings.Text = "Show Settings";
+            // 
+            // UI_CMSBTN_Quit
+            // 
+            this.UI_CMSBTN_Quit.Name = "UI_CMSBTN_Quit";
+            this.UI_CMSBTN_Quit.Size = new System.Drawing.Size(180, 22);
+            this.UI_CMSBTN_Quit.Text = "Quit";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -260,14 +294,16 @@
             this.Controls.Add(this.UI_PB_Progress);
             this.Controls.Add(this.UI_GB_Compat);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Form1";
-            this.Text = "Virt Paste";
+            this.Text = "Virtual Paste";
             this.UI_GB_Compat.ResumeLayout(false);
             this.UI_GB_Compat.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.UI_TRB_Delay)).EndInit();
             this.UI_GB_Hotkey.ResumeLayout(false);
             this.UI_GB_Hotkey.PerformLayout();
+            this.UI_CMS_NI_SysTray.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -294,6 +330,10 @@
         private System.Windows.Forms.CheckBox UI_CB_MOD_Ctrl;
         private System.Windows.Forms.TextBox UI_TB_Hotkey;
         private System.Windows.Forms.CheckBox UI_CB_SlowType;
+        private System.Windows.Forms.NotifyIcon UI_NI_SysTray;
+        private System.Windows.Forms.ContextMenuStrip UI_CMS_NI_SysTray;
+        private System.Windows.Forms.ToolStripMenuItem UI_CMSBTN_ShowSettings;
+        private System.Windows.Forms.ToolStripMenuItem UI_CMSBTN_Quit;
     }
 }
 

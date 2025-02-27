@@ -7,7 +7,7 @@
     *   Eventually will contain code for systray
     * Change log:
     *  [2/26/2025] - Initial Copy
-    *  [2/27/2025] - Added fast typing - new default
+    *  [2/27/2025] - Added fast typing - new default. Added System Tray function
 ******************************/
 
 using System;
@@ -94,9 +94,23 @@ namespace VirtPaste {
 
             // Bind stop button handler
             UI_BTN_Stop.Click += UI_BTN_Stop_Click;
+
+            // Bind SysTray Functionality
+            UI_NI_SysTray.DoubleClick += (sender, e) => {
+                Show();
+                WindowState = FormWindowState.Normal;
+            };
+            UI_BTN_Hide.Click += (sender, e) => Hide();
+            UI_CMSBTN_ShowSettings.Click += (sender, e) => Show();
+            UI_CMSBTN_Quit.Click += (sender, e) => Environment.Exit(0);
+
         }
 
 
+        /*********************
+         * Method  : UI_BTN_Stop_Click
+         * Purpose : If the virtual typer is typing, tell it to stop
+         ********************/
         private void UI_BTN_Stop_Click(object sender, EventArgs e) {
             if (VirtualTyper.Typing)
                 VirtualTyper.StopTyping();
@@ -132,8 +146,6 @@ namespace VirtPaste {
                 MessageBox.Show("Must have at least 1 modifier selected");
                 return;
             }
-
-            //Trace.WriteLine($"Key: {(Keys)settings.hotkeyKey} | Modifiers : {settings.hotkeyModifiers}");
 
             // Re-bind hotkeys
             BindHotkey();
@@ -196,6 +208,7 @@ namespace VirtPaste {
                 UI_TRB_Delay.Enabled = false;
         }
 
+
         /*************************
          * Method  : ToggleControls
          * Purpose : Enable / Disable controls while pasting. Uses Invoke for Thread Safety
@@ -221,7 +234,6 @@ namespace VirtPaste {
 
                 UI_BTN_Stop.Enabled = !enabled;
             }));
-            
         }
 
 
@@ -267,8 +279,9 @@ namespace VirtPaste {
                             VirtualTyper.StopTyping();
                         break;
                 }
-
             }
         }
+
+
     }
 }
